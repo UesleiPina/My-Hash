@@ -6,9 +6,9 @@ ministra pelo digníssimo prof° Eduardo do Valle Simões.
 
 ![image of game](imgs/game_hash1.png) ![image of game](imgs/game_hash2.png)
 
-# Instalando o Simulador:
+## Instalando o Simulador:
 
-## Instale o GTK: 
+### Instale o GTK: 
 
     sudo apt-get install libgtk2.0-dev    
 
@@ -23,7 +23,7 @@ Confira se tem direito de execução [x] :
 
 
 
-# Instalando o Montador:
+## Instalando o Montador:
 Vá na pasta que contém os arquivos do montador: "montador_fonte"
 
 ### Para compilar: 
@@ -39,7 +39,7 @@ Caso não haja permissão [x] :
 
     sudo chmod +x /montador
 
-## Play Game!
+# Play Game!
 Vá para a pasta raiz
 
 ### Para montar o código: 
@@ -55,7 +55,7 @@ Vá para a pasta raiz
 ![simulador](imgs/simulador.png)
 
 
-# Jogando
+## Jogando
 > Pressione a tecla _"Home"_ para que o simulador execute no modo automático.
 
 >Escolha com quantas vitórias o jogo termina. 
@@ -64,6 +64,6 @@ Vá para a pasta raiz
 
 > Se divirta!!!
 > 
-# Para desinstalar o GTK:
+## Para desinstalar o GTK:
 
     sudo apt autoremove
