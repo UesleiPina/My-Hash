@@ -55,7 +55,7 @@ Vá para a pasta raiz
 ![simulador](imgs/simulador.png)
 
 
-#Jogando
+# Jogando
 > Pressione a tecla _"Home"_ para que o simulador execute no modo automático.
 
 >Escolha com quantas vitórias o jogo termina. 
