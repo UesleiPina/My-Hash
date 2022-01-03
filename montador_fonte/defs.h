@@ -101,6 +101,7 @@
 #define NOP_CODE                0
 #define INPUT_CODE              96
 #define OUTPUT_CODE             97
+#define CLS_CODE                98
 
 /* Definicoes dos op codes (binarios em strings) */
 
@@ -120,6 +121,7 @@
 /* I/O Instructions: */
 #define OUTCHAR         "110010"
 #define INCHAR          "110101"
+#define CLS             "110110"
 
 /* Aritmethic Instructions(All should begin with "10"):	*/
 #define ADD             "100000"
@@ -155,7 +157,7 @@
 #define NOP             "000000"
 #define HALT            "001111"
 #define CLEARC          "001000"
-#define BREAKP		"001110"
+#define BREAKP		    "001110"
 
 /* Definicoes das condicoes (binarios em strings) */
 #define NO_COND         "0000"
@@ -311,6 +313,7 @@
 /* SETC */
 #define SETC_STR                "SETC"
 #define CLEARC_STR              "CLEARC"
+#define CLS_STR                 "CLS"
 
 
 /* Definicoes dos codigos dos registradores */

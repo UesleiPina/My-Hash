@@ -495,7 +495,32 @@ void Model::processador()
   opcode = pega_pedaco(ir,15,10);
 
   switch(opcode)
-	{ case INCHAR:
+	{
+        case CLS:
+            reg[0] = 1200;
+            letra = reg[1];
+
+            while(reg[0]--) {
+                block[reg[0]].color = "1111";
+                block[reg[0]].sym = temp * 8;
+                Vid->updateVideo(reg[0]);
+            }
+            break;
+
+        case MOV:
+            switch(pega_pedaco(ir,1,0))
+            { case 0:
+                    reg[rx] = reg[ry];
+                    break;
+                case 1:
+                    reg[rx] = sp;
+                    break;
+                default:
+                    sp = reg[rx];
+                    break;
+            }
+            break;
+    case INCHAR:
 				//timeout(9999);    // tempo que espera pelo getch()
         key = controller->getKey();//getch();
         //timeout(0);    		// tempo que espera pelo getch()

@@ -350,6 +350,11 @@ void MontarInstrucoes(void)
         {
             switch (op_code)
             {
+                case CLS_CODE:
+                    sprintf(str_msg,"%s0000000000", CLS);
+                    parser_Write_Inst(str_msg,end_cnt);
+                    end_cnt +=1;
+                    break;
                 /* ==============
                    Load Rx, End
                    ==============
