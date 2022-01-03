@@ -214,7 +214,7 @@ void DetectarLabels(void)
 
             /* Instrucoes de 2 argumentos e 1 linha : instr (), () -> [...] */
             case NOT_CODE :	/* Eu pus aqui pois sera' Rx <- Not Ry */
-	    case MOV_CODE :
+	        case MOV_CODE :
             case OUTCHAR_CODE :
             case CMP_CODE :
                 parser_SkipUntil(',');
@@ -236,8 +236,8 @@ void DetectarLabels(void)
             case JEL_CODE :
             case JO_CODE :
             case JNO_CODE :
-	    case JDZ_CODE :
-	    case JN_CODE :
+	        case JDZ_CODE :
+	        case JN_CODE :
             case CALL_CODE :
             case CEQ_CODE :
             case CNE_CODE :
@@ -251,8 +251,8 @@ void DetectarLabels(void)
             case CEL_CODE :
             case CO_CODE :
             case CNO_CODE :
-	    case CDZ_CODE :
-	    case CN_CODE :
+	        case CDZ_CODE :
+	        case CN_CODE :
                 parser_SkipUntilEnd();
                 end_cnt+=2;
                 break;
@@ -261,7 +261,7 @@ void DetectarLabels(void)
             case INCHAR_CODE :
             case INC_CODE :
             case DEC_CODE :
-/*            case NOT_CODE :  */
+            case NOT_CODE :
             case SHIFTL0_CODE :
             case SHIFTL1_CODE :
             case SHIFTR0_CODE :
@@ -943,12 +943,7 @@ void MontarInstrucoes(void)
                     break;                    
 
                 /* ==============
-   
-   
-   
-   
-   
-                Shiftl0 Rx, #n
+                Shift l0 Rx, #n
                    ==============
                 */
                 
@@ -970,7 +965,7 @@ void MontarInstrucoes(void)
                     break;
                     
                 /* ==============
-                   Shiftl1 Rx, #n
+                   Shift l1 Rx, #n
                    ==============
                 */
                 
@@ -1014,7 +1009,7 @@ void MontarInstrucoes(void)
                     break;
                     
                 /* ==============
-                   Shiftr1 Rx, #n
+                   Shift r1 Rx, #n
                    ==============
                 */
                 

@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "defs.h"
 #include "parser.h"
-#include "structs.h"
 #include "montador.h"
 
 /* Versao do montador */
