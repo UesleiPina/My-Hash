@@ -2,7 +2,7 @@
 
 Este é um projeto desenvolvido por Ueslei Pina, Nicolas de Góes e João Pedro,
 alunos de Sistemas de Informação na Usp — São Carlos, para a disciplina SSC0511-Organização-de-Computadores-Digitais
-ministra pelo digníssimo prof° Eduardo do Valle Simões.
+ministrada pelo digníssimo prof° Eduardo do Valle Simões.
 
 ![image of game](imgs/game_hash1.png) ![image of game](imgs/game_hash2.png)
 
