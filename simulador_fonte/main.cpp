@@ -1,7 +1,6 @@
 #include "Model.h"
 #include "Controller.h"
 #include <iostream>
-#include <pthread.h>
 
 using namespace std;
 
@@ -37,8 +36,8 @@ int main(int argc, char *argv[])
 		}
 	}
 
-	ModelInterface *m = new Model(argv[1], argv[2]);
-	auto *c = new Controller(static_cast<ModelInterface *>(m));
+	Model *m = new Model(argv[1], argv[2]);
+	Controller *c = new Controller(m);
 
 //*
   // enter the GTK main loop

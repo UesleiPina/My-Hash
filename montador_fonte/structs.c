@@ -1,8 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
-#include "defs.h"
-#include "montador.h"
 #include "parser.h"
 #include "structs.h"
 

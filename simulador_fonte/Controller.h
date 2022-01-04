@@ -7,44 +7,44 @@
 
 class Controller : public ControllerInterface
 {	private:
-		View *view{};
+		View *view;
 		ModelInterface *model;
 		bool hex;
 		bool automatico;
 		bool resetVideo;
 
-		int key{};
+		int key;
 	public:
-		explicit Controller(ModelInterface *model);
+		Controller(ModelInterface *model);
 
 		~Controller();
 
 		// ----- Registradores --------
-		void AlteraRegistradores(GtkWidget **TextEntryRegs) override;
+		void AlteraRegistradores(GtkWidget **TextEntryRegs);
 
-		int charToInt(const char *string) const;
+		int charToInt(const char *string);
 
 
 		// ------- Teclado --------
-		bool userInput(const char *tecla) override;
+		bool userInput(const char *tecla);
 
-		void reset() override;
+		void reset();
 
-		int getKey() override;
+		int getKey();
 
 		// ---- comandos de set -------
-		void setDelay(int valor) override;
-		void setResetVideo(bool valor) override;
-		void setRegistradorHex(bool valor) override;
+		void setDelay(int valor);
+		void setResetVideo(bool valor);
+		void setRegistradorHex(bool valor);
 
-		void switchExecucao() override;
+		void switchExecucao();
 
 
 		// ---- comandos de get --------
-		bool getHex() override;
+		bool getHex();
 
 
-		void notifyProcessamento() override;
+		void notifyProcessamento();
 };
 
 #endif

@@ -33,7 +33,7 @@
 #define HALT 15
 #define SETC 8
 #define BREAKP 14
-#define CLS 98
+#define CLS 54
 
 #define TAM 5       // Numero de instrucoes de duas linhas
 

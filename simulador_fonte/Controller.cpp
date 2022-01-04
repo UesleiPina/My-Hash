@@ -1,6 +1,6 @@
 #include "Controller.h"
 
-#include <cstring>
+#include <string.h>
 #include <iostream>
 
 using namespace std;
@@ -46,7 +46,7 @@ void Controller::AlteraRegistradores(GtkWidget **TextEntryRegs)
 	model->setRegistrador(aux);
 }
 
-int Controller::charToInt(const char *string) const
+int Controller::charToInt(const char *string)
 { int i;
 	int tam = strlen(string);
 	int fator = 1;
@@ -81,41 +81,41 @@ bool Controller::userInput(const char *tecla)
 
 	if( strlen(tecla) > 1)
 	{	if( !strcmp(tecla,"End") )
-		{	if(!automatico)
+		{	if(automatico == false)
 				model->processa();
-			return true;
+			return TRUE;
 		}
-		if( !strcmp(tecla, "Return") )
-		{	if(!automatico)
+		else if( !strcmp(tecla, "Return") )
+		{	if(automatico == false)
 				AlteraRegistradores( view->getRegistradores() );
 			key = 13;
-			return false;
+			return FALSE;
 		}
 		else if( !strcmp(tecla, "Escape") )
 		{	view->destroy(NULL, NULL); 
-			return true;
+			return TRUE;
 		}
 		else if( !strcmp(tecla, "Home") )
 		{	switchExecucao(); 
-			return true;
+			return TRUE;
 		}
 		else if( !strcmp(tecla, "Insert") )
 		{	reset(); 
-			return true;
+			return TRUE;
 		}
-		return false;
+		return FALSE;
 	}
 
 	
 	key = tecla[0];
 	//return FALSE;
 	
-	return false; // TRUE para impedir que o evento continue para os filhos, FALSE para permitir
+	return FALSE; // TRUE para impedir que o evento continue para os filhos, FALSE para permitir
 }
 
 void Controller::setRegistradorHex(bool valor)
 { hex = valor;
-	model->setRegistrador(nullptr); // atualiza os registradores
+	model->setRegistrador(NULL); // atualiza os registradores
 }
 
 bool Controller::getHex()

@@ -4,12 +4,12 @@
 #include "Mneumonicos.h"
 #include "ModelInterface.h"
 
-#include <cstdio>
-#include <cstdlib>
-#include <cstring>
-#include <ctime>		// para a funcao delay
-#include <curses.h>	    // para a captura de caracteres do inchar
-#include <cmath>		// para a funcao pow
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>		// para a funcao delay
+//#include <curses.h>	// para a captura de caracteres do inchar
+#include <math.h>		// para a funcao pow
 #include <pthread.h>
 
 using namespace std;
@@ -17,38 +17,38 @@ using namespace std;
 class Model : public ModelInterface
 {	private:
 		// ------ MVC ---------
-		Video *Vid{};
-		Instrucoes *Ins{};
-		Registradores *Reg{};
-		ControllerInterface *controller{};
+		Video *Vid;
+		Instrucoes *Ins;
+		Registradores *Reg;
+		ControllerInterface *controller;
 
 		// --- Registradores ------
-		int rx{}, ry{}, rz{};
+		int rx, ry, rz;
 
-		int reg[8]{};
-		int pc{}, ir{}, sp{};
-		bool FR[16]{};
+		int reg[8];
+		int pc, ir, sp;
+		bool FR[16];
 
 		// ---- Memoria --------
-		int mem[TAMANHO_MEMORIA]{}; // Vetor que representa a Memoria de programa e de dados do Processador
+		int mem[TAMANHO_MEMORIA]; // Vetor que representa a Memoria de programa e de dados do Processador
 
 		// ---- Nome dos arquivos ------
-		char cpuram[64]{};
-		char charmap[64]{};
+		char cpuram[64];
+		char charmap[64];
 
 		// -- buffer dos caracteres do charmap --
-		short int **chars{};
+		short int **chars;
 
 		// -- propriedades do charmap ----
-		int charmapwidth{};
-		int charmapdepth{};
+		int charmapwidth;
+		int charmapdepth;
 
 		// -- Processamento ---
-        __attribute__((unused)) pthread_t out{};
+		pthread_t out;
 
-		int key{};
-		int auxpc{};
-		int pc2{};
+		int key;
+		int auxpc;
+		int pc2;
 		int varDelay;
 		bool automatico;
 
@@ -60,71 +60,71 @@ class Model : public ModelInterface
 		Model(char *cpuram, char *charmap);
 		~Model();
 
-		void setController(ControllerInterface *controller) override;
+		void setController(ControllerInterface *controller);
 
-		void reset() override;
+		void reset();
 
 		void updateAll();
 
 		// ------ Registradores ----------------
-		void registraRegistrador(Registradores *r) override;
+		void registraRegistrador(Registradores *r);
 
-		void removeRegistrador() override;
+		void removeRegistrador();
 
 
 		// --- registradores gerais ---
-		int getRegistrador(int regN) override;
+		int getRegistrador(int regN);
 
-		void setRegistrador(int *vetor) override;
+		void setRegistrador(int *vetor);
 
 
 		// -------- PC -----------
-		int getPC() override;
+		int getPC();
 
-		void setPC(int valor) override;
+		void setPC(int valor);
 
 
 		// -------- IR -----------
-		int getIR() override;
+		int getIR();
 
-		void setIR(int valor) override;
+		void setIR(int valor);
 
 
 		// -------- SP -----------
-		int getSP() override;
+		int getSP();
 
-		void setSP(int valor) override;
+		void setSP(int valor);
 
 
 		// -------- FR -----------
-		bool getFR(int N) override;
+		bool getFR(int N);
 
-		void setFR(int N, bool valor) override;
+		void setFR(int N, bool valor);
 
 
 		// ------ Instrucoes -------------------
-		void registraInstrucoes(Instrucoes *i) override;
+		void registraInstrucoes(Instrucoes *i);
 
-		void removeInstrucoes() override;
+		void removeInstrucoes();
 
-		void processa() override;
+		void processa();
 
-		int pega_pedaco(int ir, int a, int b) override;
+		int pega_pedaco(int ir, int a, int b);
 
 
 		// ------ Video -------------------
-		void registraVideo(Video *v) override;
+		void registraVideo(Video *v);
 
-		void removeVideo() override;
+		void removeVideo();
 
-		short int** getChars() override;
+		short int** getChars();
 
-		pixblock* getPixblock() override;
+		pixblock* getPixblock();
 
-		void resetVideo() override;
+		void resetVideo();
 
 		// -------- arquivos.mif -----------
-		static int processa_linha(const char *linha);
+		int processa_linha(char *linha);
 
 		void GravaArquivo(char *nome);
 
@@ -132,34 +132,35 @@ class Model : public ModelInterface
 
 
 		// ---- cpuram.mif e charmap.mif -------
-		char* getCharmap() override;
+		char* getCharmap();
 
-		char* getCpuram() override;
+		char* getCpuram();
 
-		int getCharmapdepth() override;
+		int getCharmapdepth();
 
-		int getCharmapwidth() override;
+		int getCharmapwidth();
 
 
 		// ------ Memoria --------
-		int getMem(int pos) override;
+		int getMem(int pos);
 
 
 		// ------ Processador ---------
-		bool getProcessamento() const;
-		void setProcessamento(bool automatico) override;
+		bool getProcessamento();
+		void setProcessamento(bool automatico);
 
 		void delay();
 
-		unsigned int _rotl(unsigned int value, int shift);
+		unsigned int _rotl(const unsigned int value, int shift);
 
-		unsigned int _rotr(unsigned int value, int shift);
+		unsigned int _rotr(const unsigned int value, int shift);
 
 		void processador();
 
-		int getDelay() override;
+		int getDelay();
 
-		void setDelay(int valor) override;
+		void setDelay(int valor);
 };
 
 #endif
+

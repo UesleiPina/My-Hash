@@ -202,7 +202,7 @@ void DetectarLabels(void)
             case SUBC_CODE :
             case MUL_CODE :
             case DIV_CODE :
-	    case LMOD_CODE :	    
+	        case LMOD_CODE :
             case AND_CODE :
             case OR_CODE :
             case XOR_CODE :
@@ -213,7 +213,7 @@ void DetectarLabels(void)
                 break;
 
             /* Instrucoes de 2 argumentos e 1 linha : instr (), () -> [...] */
-            case NOT_CODE :	/* Eu pus aqui pois sera' Rx <- Not Ry */
+            case NOT_CODE :
 	        case MOV_CODE :
             case OUTCHAR_CODE :
             case CMP_CODE :
@@ -261,7 +261,6 @@ void DetectarLabels(void)
             case INCHAR_CODE :
             case INC_CODE :
             case DEC_CODE :
-            case NOT_CODE :
             case SHIFTL0_CODE :
             case SHIFTL1_CODE :
             case SHIFTR0_CODE :
@@ -297,6 +296,7 @@ void DetectarLabels(void)
             case SETC_CODE :
             case CLEARC_CODE :
             case NOP_CODE :
+            case CLS_CODE:
                 end_cnt++;
                 break;
 
@@ -305,6 +305,7 @@ void DetectarLabels(void)
                 parser_SkipUntil(',');
                 parser_SkipUntilEnd();
                 break;
+
             case EQU_CODE :
                 parser_SkipUntilEnd();
                 break;
@@ -551,23 +552,23 @@ void MontarInstrucoes(void)
                     str_tmp2 = parser_GetItem_s();
                     val2 = BuscaRegistrador(str_tmp2);
                     free(str_tmp2);
-		    if(val1 == SP_CODE){
-			str_tmp2 = ConverteRegistrador(val2);
-			sprintf(str_msg,"%s%s0000011",MOV,str_tmp2);
-			free(str_tmp2);
-			}
-		    else if(val2 == SP_CODE){
-			str_tmp1 = ConverteRegistrador(val1);
-			sprintf(str_msg,"%s%s0000001",MOV,str_tmp1);
-			free(str_tmp1);
-			}
-		    else {
-			str_tmp1 = ConverteRegistrador(val1);
-			str_tmp2 = ConverteRegistrador(val2);
-			sprintf(str_msg,"%s%s%s0000",MOV,str_tmp1,str_tmp2);
-			free(str_tmp1);
-			free(str_tmp2);
-			}
+                    if(val1 == SP_CODE){
+                        str_tmp2 = ConverteRegistrador(val2);
+                        sprintf(str_msg,"%s%s0000011",MOV,str_tmp2);
+                        free(str_tmp2);
+                    }
+                    else if(val2 == SP_CODE){
+                        str_tmp1 = ConverteRegistrador(val1);
+                        sprintf(str_msg,"%s%s0000001",MOV,str_tmp1);
+                        free(str_tmp1);
+                    }
+                    else {
+                        str_tmp1 = ConverteRegistrador(val1);
+                        str_tmp2 = ConverteRegistrador(val2);
+                        sprintf(str_msg,"%s%s%s0000",MOV,str_tmp1,str_tmp2);
+                        free(str_tmp1);
+                        free(str_tmp2);
+                    }
 		    
                     parser_Write_Inst(str_msg,end_cnt);
                     end_cnt += 1;
@@ -2187,6 +2188,10 @@ int BuscaInstrucao(char * nome)
     if (strcmp(str_tmp,LOAD_STR) == 0)
     {
         return LOAD_CODE;
+    }
+    else if(strcmp(str_tmp,CLS_STR) == 0)
+    {
+        return CLS_CODE;
     }
 	else if(strcmp(str_tmp,LOADIMED_STR) == 0) 
 	{

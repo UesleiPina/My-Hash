@@ -153,9 +153,11 @@ main:
     call DesenhaMapa
     call HomePage
     call PressEnter
-    call LimpaTela
+    cls
+    call DesenhaMapa
     call EscolhaJogadas
-    call LimpaTela
+    cls
+    call DesenhaMapa
     call DesenhaHash
     call Jogando
 
@@ -1398,7 +1400,7 @@ Reinicio:
     store 4010, r0
     loadn r6, #0
 
-    call LimpaTela
+    cls
     call DesenhaMapa
     call Vencedor
     call DesenhaHash
@@ -1640,39 +1642,6 @@ DesenhaPosicoes:
 
     rts
 ;********************************************************
-
-
-
-
-;********************************************************
-;                      LIMPA TELA
-;********************************************************
-LimpaTela:
-
-    push r0
-    push r1
-    push r2
-
-    loadn r0, #0
-    loadn r1, #1199
-    loadn r2, #' '
-
-    Loop_Apaga_Tudo:
-        outchar r2, r0
-        inc r0
-        cmp r0, r1
-        jeq Loop_Apaga_Tudo_Sai
-        jmp Loop_Apaga_Tudo
-
-    Loop_Apaga_Tudo_Sai:
-        call DesenhaMapa
-        pop r2
-        pop r1
-        pop r0
-
-    rts
-;********************************************************
-
 
 
 
@@ -2864,7 +2833,7 @@ Jogador1Vence:
         jmp Player1Wins
 
     Recomecando1:
-        call LimpaTela
+        cls
         call main
 
     rts
@@ -2917,7 +2886,7 @@ Jogador2Vence:
         jmp Player2Wins
 
     Recomecando2:
-        call LimpaTela
+        cls
         call main
 
     rts

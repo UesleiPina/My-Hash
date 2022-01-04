@@ -4,7 +4,7 @@
 ControllerInterface* View::controller = NULL;
 GtkWidget** View::TextEntryRegs = new GtkWidget*[8];
 
-GtkWidget* View::labelR = nullptr;
+GtkWidget* View::labelR = NULL;
 
 int line2_instruction[TAM] = { STORE, LOAD, LOADIMED, JMP, CALL };
 
@@ -211,20 +211,21 @@ void View::Imprime(unsigned int atual, unsigned int proxima, unsigned int linhas
 
 void View::show_program(int linha, int pc, int sp)
 { unsigned int ir = model->getMem(pc),
-							_rx = model->pega_pedaco(ir,9,7),
-							_ry = model->pega_pedaco(ir,6,4), 
-							_rz = model->pega_pedaco(ir,3,1);
+                    _rx = model->pega_pedaco(ir,9,7),
+					_ry = model->pega_pedaco(ir,6,4),
+					_rz = model->pega_pedaco(ir,3,1);
 
 	char texto[128];
 
   switch(model->pega_pedaco(ir,15,10))
-	{ case INCHAR: 	sprintf(texto, "PC: %05d\t|	INCHAR R%d			|	R%d        <- teclado", 			pc, _rx, _rx);		 			 break;
-		case OUTCHAR:	sprintf(texto, "PC: %05d\t|	OUTCHAR R%d, R%d	|	video[R%d] <- char[R%d]", pc, _rx, _ry, _rx, _ry); break;
-    case MOV:
+	{
+      case INCHAR: 	sprintf(texto, "PC: %05d\t|	INCHAR R%d			|	R%d        <- teclado", 			pc, _rx, _rx); break;
+      case OUTCHAR:	sprintf(texto, "PC: %05d\t|	OUTCHAR R%d, R%d	|	video[R%d] <- char[R%d]", pc, _rx, _ry, _rx, _ry); break;
+      case MOV:
 			switch(model->pega_pedaco(ir,1,0))
 			{	case 0:  sprintf(texto,"PC: %05d\t|	MOV R%d, R%d			|	R%d <- R%d", 	pc, _rx, _ry, _rx, _ry); break;
-				case 1:  sprintf(texto,"PC: %05d\t|	MOV R%d, SP				|	R%d <- SP", 	pc, _rx, _rx); 				   break;
-				default: sprintf(texto,"PC: %05d\t|	MOV SP, R%d				|	SP  <- R%d", 	pc, _rx, _rx);					 break;
+				case 1:  sprintf(texto,"PC: %05d\t|	MOV R%d, SP				|	R%d <- SP", 	pc, _rx, _rx); break;
+				default: sprintf(texto,"PC: %05d\t|	MOV SP, R%d				|	SP  <- R%d", 	pc, _rx, _rx); break;
 			}
 			break;
 
@@ -244,7 +245,8 @@ void View::show_program(int linha, int pc, int sp)
 
     case JMP:
 			switch(model->pega_pedaco(ir,9,6))
-			{ case 0:	 sprintf(texto, "PC: %05d\t|	JMP #%05d 		|	PC <- #%05d", pc, model->getMem(pc+1), model->getMem(pc+1)); break;
+			{
+                case 0:	 sprintf(texto, "PC: %05d\t|	JMP #%05d 		|	PC <- #%05d", pc, model->getMem(pc+1), model->getMem(pc+1)); break;
 				case 1:	 sprintf(texto, "PC: %05d\t|	JEQ #%05d 		|	PC <- #%05d", pc, model->getMem(pc+1), model->getMem(pc+1)); break;
 				case 2:	 sprintf(texto, "PC: %05d\t|	JNE #%05d 		|	PC <- #%05d", pc, model->getMem(pc+1), model->getMem(pc+1)); break;
 				case 3:  sprintf(texto, "PC: %05d\t|	JZ  #%05d			|	PC <- #%05d", pc, model->getMem(pc+1), model->getMem(pc+1)); break;
@@ -281,7 +283,8 @@ void View::show_program(int linha, int pc, int sp)
 
     case CALL:
 			switch(model->pega_pedaco(ir,9,6))
-			{ case 0:  sprintf(texto, "PC: %05d\t|	CALL #%05d\t\t|	M[%d]<-PC; SP--; PC<-#%05d", pc, model->getMem(pc+1), sp, model->getMem(pc+1)); break;
+			{
+                case 0:  sprintf(texto, "PC: %05d\t|	CALL #%05d\t\t|	M[%d]<-PC; SP--; PC<-#%05d", pc, model->getMem(pc+1), sp, model->getMem(pc+1)); break;
 				case 1:  sprintf(texto, "PC: %05d\t|	CEQ #%05d\t\t|	M[%d]<-PC; SP--; PC<-#%05d", pc, model->getMem(pc+1), sp, model->getMem(pc+1)); break;
 				case 2:  sprintf(texto, "PC: %05d\t|	CNE #%05d\t\t|	M[%d]<-PC; SP--; PC<-#%05d", pc, model->getMem(pc+1), sp, model->getMem(pc+1)); break;
 				case 3:  sprintf(texto, "PC: %05d\t|	CZ #%05d\t\t|	M[%d]<-PC; SP--; PC<-#%05d", pc, model->getMem(pc+1), sp, model->getMem(pc+1)); break;
@@ -334,13 +337,15 @@ void View::show_program(int linha, int pc, int sp)
 
     case HALT: sprintf(texto, "PC: %05d\t|	HALT				|	Pausa a execucao", pc); break;
 
+    case CLS: sprintf(texto, "PC: %05d\t|	CLS 				|	Limpa Tela", pc); break;
+
     case NOP:	sprintf(texto, "PC: %05d\t|	NOOP				|	Do nothing", pc); break;
 
     case BREAKP: sprintf(texto, "PC: %05d\t|	BREAKP #%05d		|	Break Point", pc, model->pega_pedaco(ir,9,0)); break;
 
-		default: 
-			cout << "ERRO - show program linha: " << linha << " pc " << pc << endl;
-			break;
+    default:
+        cout << "ERRO - show program linha: " << linha << " pc " << pc << endl;
+        break;
   }
 
 	escrever_na_tela(texto, linha, 1);
@@ -628,4 +633,3 @@ gboolean View::ViewerExpose(GtkWidget *widget, GdkEventExpose *event, gpointer d
 
 	return FALSE;
 }
-

@@ -6,7 +6,7 @@
 #include "Registradores.h"
 
 #include <gtk/gtk.h>
-#include <cstring>
+#include <string.h>
 
 #include "ModelInterface.h"
 #include "ControllerInterface.h"
@@ -20,34 +20,34 @@ class View : public Instrucoes, public Registradores, public Video
 		static ControllerInterface *controller;
 
 		// ---- registradores -------
-		bool FR[16]{};
-		int reg[8]{};
-		int pc{}, ir{}, sp{};
+		bool FR[16];
+		int reg[8];
+		int pc, ir, sp;
 
 		// -------- Gtk ----------
-		GtkWidget *window{};
+		GtkWidget *window;
 
 		// ------ labels ---------
-		GtkWidget *labelEnd{},
-							*labelP{},
-							*labelCharmap{},
-							*labelCPURAM{};
+		GtkWidget *labelEnd, 
+							*labelP,
+							*labelCharmap, 
+							*labelCPURAM;
 
 		static GtkWidget **TextEntryRegs,
 												*labelR;
 
-		GtkWidget *labelReg[8]{},
-							*labelIr{},
-							*labelSp{},
-							*labelPc{},
-							*labelFR{};
+		GtkWidget *labelReg[8], 
+							*labelIr, 
+							*labelSp, 
+							*labelPc, 
+							*labelFR;
 
-		char textoLabelPC[16]{};
-		char textoLabelIR[16]{};
-		char textoLabelSP[16]{};
+		char textoLabelPC[16];
+		char textoLabelIR[16];
+		char textoLabelSP[16];
 
 		// ----- Instrucoes ---------
-		GtkTextBuffer *buffer{};
+		GtkTextBuffer *buffer;
 
 		// ------- Video --------
 
@@ -59,10 +59,10 @@ class View : public Instrucoes, public Registradores, public Video
 		char *charmap;
 		char *cpuram;
 
-		cairo_surface_t *surface{};
+		cairo_surface_t *surface;
 
 	public:
-		GtkWidget *outputarea{};
+		GtkWidget *outputarea;
 		pixblock *block;
 
 		View(ModelInterface *model, ControllerInterface *controller);

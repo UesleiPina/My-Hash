@@ -1,7 +1,7 @@
 #ifndef CONTROLLERINTERFACE_H
 #define CONTROLLERINTERFACE_H
 
-#include <gtk-3.0/gtk/gtk.h>
+#include <gtk/gtk.h>
 
 class ControllerInterface
 {	public:

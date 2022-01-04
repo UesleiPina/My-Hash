@@ -1,12 +1,11 @@
 #include "Model.h"
 #include <iostream>
 
-
 void* processaAutomatico(void *data)
-{	if(data == nullptr)
-		return nullptr;
+{	if(data == NULL)
+		return NULL;
 
-	auto *model = (Model*) data;
+	Model *model = (Model*) data;
 
 	int contador = 0;
 
@@ -30,10 +29,6 @@ void* processaAutomatico(void *data)
 	return NULL;
 }
 
-void gdk_threads_enter() {
-
-}
-
 void Model::updateAll()
 {	Ins->updateInstrucoes(auxpc, pc2, N_LINHAS);		// termina imprimindo o resultado
 	Reg->updateRegistradores();	// e atualizando os registradores
@@ -47,7 +42,7 @@ void Model::updateAll()
 // -- Construtor e destrutor ---
 Model::Model(char *cpuram, char *charmap)
 {	FILE *pf;
-	if( (pf = fopen(cpuram, "r")) == nullptr)
+	if( (pf = fopen(cpuram, "r")) == NULL)
 	{	printf("Erro ao tentar abrir: %s\n", cpuram);
 		exit(1);
 	}
@@ -184,12 +179,12 @@ void Model::registraInstrucoes(Instrucoes *i)
 {	Ins = i;	}
 
 void Model::removeInstrucoes()
-{	Ins = nullptr;	}
+{	Ins = NULL;	}
 
 void Model::setProcessamento(bool automatico)
 {	this->automatico = automatico; }
 
-bool Model::getProcessamento() const
+bool Model::getProcessamento()
 {	return automatico; }
 
 void Model::processa()
@@ -252,8 +247,8 @@ void Model::resetVideo()
 
 
 // -------- arquivos.mif -----------
-int Model::processa_linha(const char *linha)
-{ int i = 0, j = 0, valor = 0;
+int Model::processa_linha(char *linha)
+{ unsigned int i = 0, j = 0, valor = 0;
 
 	//procura o inicio do numero
 	while(linha[i] != ':')
@@ -274,7 +269,7 @@ void Model::GravaArquivo(char *nome)
 {	FILE *stream;   // Declara ponteiro para o arquivo
 
 	//  Processa dados do Arquivo CPU.MIF
-	if( (stream = fopen(nome,"r")) == nullptr)  // Abre o arquivo para leitura
+	if( (stream = fopen(nome,"r")) == NULL)  // Abre o arquivo para leitura
 	{ printf("Error: File not OPEN!\n");
 		return;
 	}
@@ -314,12 +309,12 @@ void Model::GravaArquivo(char *nome)
 }
 
 void Model::load_charmap(char* filename)
-{ if(filename == nullptr)
+{ if(filename == NULL)
 		return;
 
 	FILE *ipf = fopen(filename, "r");
 
-	if(ipf == nullptr)
+	if(ipf == NULL)
 	{ printf("Error: CHARMAP.MIF not found.\n");
 		return;
 	}
@@ -370,7 +365,7 @@ void Model::load_charmap(char* filename)
 
 		// ----- pula até os 0s e 1s que formam os caracteres ---------
 		char a;
-		while(true)
+		while(1)
 		{ a = fgetc(ipf);
 			if(a == '1' || a == '0')
 			{ fseek(ipf, -1, SEEK_CUR);
@@ -468,18 +463,19 @@ void Model::setDelay(int valor)
 }
 
 void Model::processador()
-{ unsigned int la;
+{
+    unsigned int la;
 	unsigned int i;
 	unsigned int temp;
 	unsigned int opcode;
-
 	unsigned int letra;
 
   // ----- Ciclo de Busca: --------
 	ir = mem[pc];
 
 	if(pc > 32767)
-	{ printf("Ultrapassou limite da memoria, coloque um jmp no fim do código\n");
+	{
+        printf("Ultrapassou limite da memoria, coloque um jmp no fim do código\n");
 		exit(1);
 	}
 	pc++;
@@ -493,34 +489,19 @@ void Model::processador()
 
   // Case das instrucoes
   opcode = pega_pedaco(ir,15,10);
-
   switch(opcode)
 	{
-        case CLS:
-            reg[0] = 1200;
-            letra = reg[1];
-
-            while(reg[0]--) {
-                block[reg[0]].color = "1111";
-                block[reg[0]].sym = temp * 8;
-                Vid->updateVideo(reg[0]);
-            }
-            break;
-
-        case MOV:
-            switch(pega_pedaco(ir,1,0))
-            { case 0:
-                    reg[rx] = reg[ry];
-                    break;
-                case 1:
-                    reg[rx] = sp;
-                    break;
-                default:
-                    sp = reg[rx];
-                    break;
-            }
-            break;
-    case INCHAR:
+      case CLS:
+          resetVideo();
+        reg[0] = 1200;
+        while(reg[0]--)
+        {	block[reg[0]].color = BLACK;
+            block[reg[0]].sym = 0;
+            Vid->updateVideo(reg[0]);
+        }
+        break;
+	
+	case INCHAR:
 				//timeout(9999);    // tempo que espera pelo getch()
         key = controller->getKey();//getch();
         //timeout(0);    		// tempo que espera pelo getch()
