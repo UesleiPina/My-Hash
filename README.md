@@ -69,4 +69,4 @@ Vá para a pasta raiz
     sudo apt autoremove
 
 ## Vídeo explicativo:
-![clique aqui.](https://drive.google.com/file/d/1O076qvm7jF2KWjXWlnADnc8sD2BQjfPJ/view?usp=sharing)
+[drive.google](https://drive.google.com/file/d/1O076qvm7jF2KWjXWlnADnc8sD2BQjfPJ/view?usp=sharing)
