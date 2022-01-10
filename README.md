@@ -67,3 +67,6 @@ Vá para a pasta raiz
 ## Para desinstalar o GTK:
 
     sudo apt autoremove
+
+## Vídeo explicativo:
+![clique aqui.](https://drive.google.com/file/d/1O076qvm7jF2KWjXWlnADnc8sD2BQjfPJ/view?usp=sharing)
